@@ -163,15 +163,19 @@ class CrowdProcessor:
             * self.detection_correction_factor
         )
 
-        # Alert logic
-        alert = "Normal"
-        color = (0, 255, 0)
-        if density >= self.density_threshold_critical:
-            alert = "CRITICAL"
-            color = (0, 0, 255)
-        elif density >= self.density_threshold_high:
-            alert = "WARNING"
+        # Alert logic based on density thresholds
+        if density < 1:
+            alert = "Low"
+            color = (0, 255, 0)
+        elif density < 2:
+            alert = "Medium"
             color = (0, 165, 255)
+        elif density < 4:
+            alert = "High"
+            color = (0, 0, 255)
+        else:
+            alert = "Extreme"
+            color = (128, 0, 128)
         if est_people >= self.super_critical_threshold:
             alert = "SUPER CRITICAL"
             color = (128, 0, 128)
